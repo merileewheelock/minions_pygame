@@ -18,6 +18,7 @@ class Good(Sprite):
 		self.rect = self.image.get_rect()
 		self.lives = 3
 		self.score = 0
+                self.opponent_frequency = 100
 
 	def drawMe(self):
 		if self.should_move_up and self.y > 0:

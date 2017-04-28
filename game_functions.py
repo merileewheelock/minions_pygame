@@ -36,4 +36,5 @@ def Collisions(goods, evils, bananas, good_minion, evil_minion):
 		good_minion.decreaseLife()
 	if evil_minion_died:
 		good_minion.score += 1
-		# evil_minion.evil_freq -= 20
+		if good_minion.opponent_frequency > 2:
+			good_minion.opponent_frequency -= 2 

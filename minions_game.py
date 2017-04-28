@@ -3,6 +3,7 @@ from game_functions import *
 from Good import *
 from Evil import *
 from Banana import *
+from score_handler import *
 
 def run_game():
 	pygame.init()
@@ -25,15 +26,20 @@ def run_game():
 	bananas = Group()
 
 	tick = 0
+        previous_bad_guy = 0  #This needs to be outside the while loop
+
+
+	highest_score = getHighScore()
+        
 	while 1:
 		tick += 1
-		# last_bad_guy = 0
-		# if tick > last_bad_guy:
-		# 	evils.add(Evil(screen, "./images/evil_minion.png"))
-		# 	# last_bad_guy = tick
-		
-		if tick % 30 == 0:
+	#	last_bad_guy = 0
+		if tick > previous_bad_guy + good_minion.opponent_frequency:
 			evils.add(Evil(screen, "./images/evil_minion.png"))
+			previous_bad_guy = tick
+		
+#		if tick % 30 == 0:
+#			evils.add(Evil(screen, "./images/evil_minion.png"))
 
 		screen.blit(background_image, [0,0])
 
@@ -42,7 +48,7 @@ def run_game():
 		lives = font.render("Lives: %d" % (good_minion.lives), True, (0,0,0))
 		score = font.render("Score: %d" % (good_minion.score), True, (0,0,0))
 
-		high_score = font.render("High Score: %d" % (0), True, (0,0,0))
+		high_score = font.render("High Score: %d" % (highest_score), True, (0,0,0))
 
 		# screen.blit(timer, [1200,50])
 		screen.blit(lives, [1200,50])
@@ -66,6 +72,10 @@ def run_game():
 		checkEvents(good_minion, screen, bananas, tick, banana_sound)
 
 		Collisions(goods, evils, bananas, good_minion, evil_minion)
+
+		if good_minion.score > highest_score:
+			highest_score = good_minion.score
+			setHighScore(highest_score)
 
 		if not good_minion.isAlive():
 			font = pygame.font.Font(None, 100)
