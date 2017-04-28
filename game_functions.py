@@ -4,7 +4,7 @@ from Banana import Banana
 from pygame.sprite import Group, groupcollide
 from Good import *
 
-def checkEvents(good_minion, screen, bananas, tick):
+def checkEvents(good_minion, screen, bananas, tick, banana_sound):
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			sys.exit()
@@ -17,6 +17,7 @@ def checkEvents(good_minion, screen, bananas, tick):
 				for direction in range(2, 3):
 					new_banana  = Banana(screen, good_minion, direction)
 					bananas.add(new_banana)
+				banana_sound.play()
 
 		elif event.type == pygame.KEYUP:
 			if event.key == 273:
@@ -25,7 +26,7 @@ def checkEvents(good_minion, screen, bananas, tick):
 				good_minion.shouldMove("down", False)
 
 
-def Collisions(goods, evils, bananas, good_minion):
+def Collisions(goods, evils, bananas, good_minion, evil_minion):
 	good_died = groupcollide(goods, evils, False, True) #will make hero die when they collide
 	evil_died = groupcollide(bananas, evils, True, True)
 	good_minion_died = not len(good_died) == 0
@@ -35,3 +36,4 @@ def Collisions(goods, evils, bananas, good_minion):
 		good_minion.decreaseLife()
 	if evil_minion_died:
 		good_minion.score += 1
+		evil_minion.evil_freq -= 20
