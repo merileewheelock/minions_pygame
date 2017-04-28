@@ -12,7 +12,7 @@ class Evil(Sprite):
 		self.y = randint(1,400)
 		self.screen = screen
 		self.rect = self.image.get_rect()
-		self.evil_freq = 120
+		# self.evil_freq = 120
 
 	def updateMe(self, good_minion):
 		self.x -= self.speed

@@ -27,7 +27,12 @@ def run_game():
 	tick = 0
 	while 1:
 		tick += 1
-		if tick % evil_minion.evil_freq == 0:
+		# last_bad_guy = 0
+		# if tick > last_bad_guy:
+		# 	evils.add(Evil(screen, "./images/evil_minion.png"))
+		# 	# last_bad_guy = tick
+		
+		if tick % 30 == 0:
 			evils.add(Evil(screen, "./images/evil_minion.png"))
 
 		screen.blit(background_image, [0,0])
@@ -66,6 +71,7 @@ def run_game():
 			font = pygame.font.Font(None, 100)
 			game_over = font.render("GAME OVER", True, (0,0,0))
 			screen.blit(game_over, [500,200])
+			# evils.add(Evil(screen, "./images/evil_minion.png"))
 
 		pygame.display.flip()
 
