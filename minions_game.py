@@ -13,6 +13,8 @@ def run_game():
 	background_image = pygame.image.load("./images/background.png")
 	banana_image = pygame.image.load("./images/banana.png")
 	banana_sound = pygame.mixer.Sound("./sounds/banana.wav")
+	pygame.mixer.music.load("./sounds/game_music.wav")
+	pygame.mixer.music.play(-1)
 
 	good_minion = Good(screen, "./images/good_minion.png")
 	evil_minion = Evil(screen, "./images/evil_minion.png")
@@ -30,7 +32,11 @@ def run_game():
 
 
 	highest_score = getHighScore()
+
+	#INTRO WELCOME SCREEN
+	welcomeScreen(screen)
         
+
 	while 1:
 		tick += 1
 	#	last_bad_guy = 0
@@ -43,17 +49,16 @@ def run_game():
 
 		screen.blit(background_image, [0,0])
 
-		font = pygame.font.Font(None, 25)
+		font = pygame.font.Font(None, 35)
 		# timer = font.render("Seconds passed: %d" % (tick / 30), True, (0,0,0))
-		lives = font.render("Lives: %d" % (good_minion.lives), True, (0,0,0))
-		score = font.render("Score: %d" % (good_minion.score), True, (0,0,0))
-
-		high_score = font.render("High Score: %d" % (highest_score), True, (0,0,0))
+		lives = font.render("Lives: %d" % (good_minion.lives), True, (255,255,0))
+		score = font.render("Score: %d" % (good_minion.score), True, (255,255,255))
+		high_score = font.render("High Score: %d" % (highest_score), True, (255,255,255))
 
 		# screen.blit(timer, [1200,50])
-		screen.blit(lives, [1200,50])
-		screen.blit(score, [1200,80])
-		screen.blit(high_score, [1200,110])
+		screen.blit(lives, [1200,30])
+		screen.blit(score, [1200,60])
+		screen.blit(high_score, [1200,90])
 
 		#Draw the player
 		for good_minion in goods:
@@ -81,11 +86,9 @@ def run_game():
 			font = pygame.font.Font(None, 100)
 			game_over = font.render("GAME OVER", True, (0,0,0))
 			screen.blit(game_over, [500,200])
-			# evils.add(Evil(screen, "./images/evil_minion.png"))
 
 		pygame.display.flip()
 
 run_game()
 
-#Filet Minion
 #One in a Minion
