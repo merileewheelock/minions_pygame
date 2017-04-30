@@ -4,7 +4,7 @@ from Banana import Banana
 from pygame.sprite import Group, groupcollide
 from Good import *
 
-def checkEvents(good_minion, screen, bananas, tick, banana_sound):
+def checkEvents(good_minion, screen, bananas, tick, banana_sound, evils):
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			sys.exit()
@@ -18,7 +18,15 @@ def checkEvents(good_minion, screen, bananas, tick, banana_sound):
 					new_banana  = Banana(screen, good_minion, direction)
 					bananas.add(new_banana)
 				banana_sound.play()
-
+#starts
+		elif event.type==pygame.KEYDOWN and not good_minion.isAlive():
+			if event.key == 13:
+	                        good_minion.lives = 3
+        	                good_minion.score = 0
+                	        good_minion.opponent_frequency = 100
+				evils.empty()
+                        	return False
+#ends
 		elif event.type == pygame.KEYUP:
 			if event.key == 273:
 				good_minion.shouldMove("up", False)
@@ -56,7 +64,7 @@ def welcomeScreen(screen, title_text, title_image, continue_text):
 		#welcome_message2 = welcome_font2.render("Press any key to continue", True, (255,255,255))
 
 		for event in pygame.event.get():
-			if event.type==pygame.KEYDOWN:
+			if event.type==pygame.KEYDOWN and event.key == 13:
 				end_welcome_screen = True
 			elif event.type == pygame.QUIT:
 				sys.exit()
@@ -70,7 +78,4 @@ def welcomeScreen(screen, title_text, title_image, continue_text):
 		
 		screen.blit(title_text, [460,150])
 		pygame.display.flip()
-
-
-
 

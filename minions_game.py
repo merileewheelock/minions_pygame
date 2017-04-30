@@ -13,6 +13,7 @@ def run_game():
 	background_image = pygame.image.load("./images/background.png")
 	title_text = pygame.image.load("./images/Filet_Minion.png")
 	continue_text = pygame.image.load("./images/Continue.png")
+        game_over_text = pygame.image.load("./images/Game_over.png")
         title_image = pygame.image.load("./images/pair.png")
 	banana_image = pygame.image.load("./images/banana.png")
 	banana_sound = pygame.mixer.Sound("./sounds/banana.wav")
@@ -86,9 +87,10 @@ def run_game():
 			setHighScore(highest_score)
 
 		if not good_minion.isAlive():
-			font = pygame.font.Font(None, 100)
-			game_over = font.render("GAME OVER", True, (0,0,0))
-			screen.blit(game_over, [500,200])
+			#font = pygame.font.Font(None, 100)
+			#game_over = font.render("GAME OVER", True, (0,0,0))
+			#screen.blit(game_over, [500,200])
+			endScreen(screen, continue_text, game_over_text, good_minion)
 
 		pygame.display.flip()
 
