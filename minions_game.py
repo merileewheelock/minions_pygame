@@ -16,6 +16,7 @@ def run_game():
         game_over_text = pygame.image.load("./images/Game_over.png")
         title_image = pygame.image.load("./images/pair.png")
 	banana_image = pygame.image.load("./images/banana.png")
+	sad_minion_image = pygame.image.load("./images/sad_minion.png") #game over minion
 	banana_sound = pygame.mixer.Sound("./sounds/banana.wav")
 	pygame.mixer.music.load("./sounds/super-bell-hill.wav")
 	pygame.mixer.music.play(-1)
@@ -72,10 +73,11 @@ def run_game():
 			screen.blit(high_score, [1200,90])
 
 			#Draw the player
-			for good_minion in goods:
-				good_minion.drawMe()
-	#			if good_minion.lives > 0:
-	#				goods.add(good_minion)
+			if good_minion.isAlive(): #added for sad_minion
+				for good_minion in goods:
+					good_minion.drawMe()
+		#			if good_minion.lives > 0:
+		#				goods.add(good_minion)
 
 			for banana in bananas:
 				banana.update()
@@ -94,6 +96,7 @@ def run_game():
 				setHighScore(highest_score)
 
 			if not good_minion.isAlive():
+				screen.blit(sad_minion_image, [good_minion.x, good_minion.y])
 				screen.blit(game_over_text, [310,100])
 				in_game = checkEvents(good_minion, screen, bananas, tick, banana_sound, evils) 
                                 if tick > last_shown + 50:

@@ -20,12 +20,13 @@ class Banana(Sprite):
 	def update(self):
 
 		if self.direction == 2: #right
-			self.x += self.speed #change the y, each time update is run, by bullet speed
+			self.x += self.speed #change the y each time update is run
 			self.rect.x = self.x #update rect position
 
 
 	def drawBanana(self): #Making the bullet (not importing image)
-		# pygame.draw.rect(self.screen, self.color, self.rect) #draw the bullet!
+		# pygame.draw.rect(self.screen, self.color, self.rect)
 		self.rect.left = self.x
 		self.rect.top = self.y
 		self.screen.blit(self.image,[self.x, self.y])
+		self.image = pygame.transform.rotate(self.image, 90) #spinning banana!
