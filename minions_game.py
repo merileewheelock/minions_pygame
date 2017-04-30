@@ -5,6 +5,7 @@ from Evil import *
 from Banana import *
 from score_handler import *
 
+
 def run_game():
 	pygame.init()
 	screen_size = (1400,527)
@@ -19,6 +20,8 @@ def run_game():
 	sad_minion_image = pygame.image.load("./images/sad_minion.png") #game over minion
 	banana_sound = pygame.mixer.Sound("./sounds/banana.wav")
 	pygame.mixer.music.load("./sounds/super-bell-hill.wav")
+	minion_yahoo = pygame.mixer.Sound("./sounds/minion-yahoo-3.wav")
+	got_hit_sound = pygame.mixer.Sound("./sounds/minion-hit-2.wav")
 	pygame.mixer.music.play(-1)
 
 	good_minion = Good(screen, "./images/good_minion.png")
@@ -39,7 +42,7 @@ def run_game():
 	highest_score = getHighScore()
 
 	#INTRO WELCOME SCREEN
-	welcomeScreen(screen, title_text, title_image, continue_text)
+	welcomeScreen(screen, title_text, title_image, continue_text, minion_yahoo)
         
 	game_active = True
 	last_shown = 0
@@ -81,15 +84,16 @@ def run_game():
 
 			for banana in bananas:
 				banana.update()
-				banana.drawBanana()
+				banana.drawBanana(tick)
 
 			for evil_minion in evils:
 				evil_minion.updateMe(good_minion)
 				evil_minion.drawMe()
 
-			checkEvents(good_minion, screen, bananas, tick, banana_sound, evils)
+			checkEvents(good_minion, screen, bananas, tick, banana_sound, evils, minion_yahoo)
 
-			Collisions(goods, evils, bananas, good_minion, evil_minion)
+			Collisions(goods, evils, bananas, good_minion, evil_minion, got_hit_sound)
+
 
 			if good_minion.score > highest_score:
 				highest_score = good_minion.score
@@ -98,7 +102,7 @@ def run_game():
 			if not good_minion.isAlive():
 				screen.blit(sad_minion_image, [good_minion.x, good_minion.y])
 				screen.blit(game_over_text, [310,100])
-				in_game = checkEvents(good_minion, screen, bananas, tick, banana_sound, evils) 
+				in_game = checkEvents(good_minion, screen, bananas, tick, banana_sound, evils, minion_yahoo) 
                                 if tick > last_shown + 50:
                                         last_shown = tick
                 		if tick > last_shown + 30:

@@ -24,9 +24,9 @@ class Banana(Sprite):
 			self.rect.x = self.x #update rect position
 
 
-	def drawBanana(self): #Making the bullet (not importing image)
+	def drawBanana(self, tick): #Making the bullet (not importing image)
 		# pygame.draw.rect(self.screen, self.color, self.rect)
 		self.rect.left = self.x
 		self.rect.top = self.y
-		self.screen.blit(self.image,[self.x, self.y])
-		self.image = pygame.transform.rotate(self.image, 90) #spinning banana!
+		self.screen.blit(pygame.transform.rotate(self.image, tick*-20),[self.x, self.y])
+#		self.image = pygame.transform.rotate(self.image, 90) #spinning banana!
