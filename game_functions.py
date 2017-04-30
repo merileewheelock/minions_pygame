@@ -39,23 +39,38 @@ def Collisions(goods, evils, bananas, good_minion, evil_minion):
 		if good_minion.opponent_frequency > 2:
 			good_minion.opponent_frequency -= 2 
 
-def welcomeScreen(screen):
-	yellow = (255,255,0)
+def welcomeScreen(screen, title_text, title_image, continue_text):
+	#yellow = (255,255,0)
+        white = (250,250,250)
 	end_welcome_screen = False
+	tick2 = 0
+        last_shown = 0
 	while (end_welcome_screen == False):
-		screen.fill(yellow)
-		welcome_font1 = pygame.font.SysFont(None, 200)
-		welcome_font2 = pygame.font.SysFont(None, 60)
+		#screen.blit(title_text, [210,200])
+		screen.fill(white)
+		#welcome_font1 = pygame.font.SysFont(None, 200)
+		#welcome_font2 = pygame.font.SysFont(None, 60)
+                tick2 += 1
 		
-		welcome_message1 = welcome_font1.render("FILET MINION", 1, (13,3,163))
-		welcome_message2 = welcome_font2.render("Press any key to continue", True, (255,255,255))
+		#welcome_message1 = welcome_font1.render("FILET MINION", 1, (13,3,163) )
+		#welcome_message2 = welcome_font2.render("Press any key to continue", True, (255,255,255))
 
 		for event in pygame.event.get():
 			if event.type==pygame.KEYDOWN:
 				end_welcome_screen = True
 			elif event.type == pygame.QUIT:
 				sys.exit()
-
-		screen.blit(welcome_message1,(210,200))
-		screen.blit(welcome_message2,(450,320))
+		screen.blit(title_image, [160,50])
+		#screen.blit(welcome_message1,(210,200))
+		if tick2 > last_shown + 30:
+	#		screen.blit(welcome_message2,(450,320))
+			screen.blit(continue_text, [515,320])
+		if tick2 > last_shown + 50:
+			last_shown = tick2 
+		
+		screen.blit(title_text, [460,150])
 		pygame.display.flip()
+
+
+
+

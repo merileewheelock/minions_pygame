@@ -11,9 +11,12 @@ def run_game():
 	screen = pygame.display.set_mode(screen_size)
 	pygame.display.set_caption("Filet Minion")
 	background_image = pygame.image.load("./images/background.png")
+	title_text = pygame.image.load("./images/Filet_Minion.png")
+	continue_text = pygame.image.load("./images/Continue.png")
+        title_image = pygame.image.load("./images/pair.png")
 	banana_image = pygame.image.load("./images/banana.png")
 	banana_sound = pygame.mixer.Sound("./sounds/banana.wav")
-	pygame.mixer.music.load("./sounds/game_music.wav")
+	pygame.mixer.music.load("./sounds/super-bell-hill.wav")
 	pygame.mixer.music.play(-1)
 
 	good_minion = Good(screen, "./images/good_minion.png")
@@ -34,7 +37,7 @@ def run_game():
 	highest_score = getHighScore()
 
 	#INTRO WELCOME SCREEN
-	welcomeScreen(screen)
+	welcomeScreen(screen, title_text, title_image, continue_text)
         
 
 	while 1:
