@@ -40,59 +40,67 @@ def run_game():
 	#INTRO WELCOME SCREEN
 	welcomeScreen(screen, title_text, title_image, continue_text)
         
+	game_active = True
+	last_shown = 0
 
-	while 1:
-		tick += 1
-	#	last_bad_guy = 0
-		if tick > previous_bad_guy + good_minion.opponent_frequency:
-			evils.add(Evil(screen, "./images/evil_minion.png"))
-			previous_bad_guy = tick
+	while game_active:
+		in_game = True
+		#evils.empty()	
+		while in_game:
+			tick += 1
+		#	last_bad_guy = 0
+	#		if not good_minion.isAlive():
+	#			break
+			if tick > previous_bad_guy + good_minion.opponent_frequency:
+				evils.add(Evil(screen, "./images/evil_minion.png"))
+				previous_bad_guy = tick
 		
-#		if tick % 30 == 0:
-#			evils.add(Evil(screen, "./images/evil_minion.png"))
+	#		if tick % 30 == 0:
+	#				evils.add(Evil(screen, "./images/evil_minion.png"))
 
-		screen.blit(background_image, [0,0])
+			screen.blit(background_image, [0,0])
 
-		font = pygame.font.Font(None, 35)
-		# timer = font.render("Seconds passed: %d" % (tick / 30), True, (0,0,0))
-		lives = font.render("Lives: %d" % (good_minion.lives), True, (255,255,0))
-		score = font.render("Score: %d" % (good_minion.score), True, (255,255,255))
-		high_score = font.render("High Score: %d" % (highest_score), True, (255,255,255))
+			font = pygame.font.Font(None, 35)
+			# timer = font.render("Seconds passed: %d" % (tick / 30), True, (0,0,0))
+			lives = font.render("Lives: %d" % (good_minion.lives), True, (255,255,0))
+			score = font.render("Score: %d" % (good_minion.score), True, (255,255,255))
+			high_score = font.render("High Score: %d" % (highest_score), True, (255,255,255))
 
-		# screen.blit(timer, [1200,50])
-		screen.blit(lives, [1200,30])
-		screen.blit(score, [1200,60])
-		screen.blit(high_score, [1200,90])
+			# screen.blit(timer, [1200,50])
+			screen.blit(lives, [1200,30])
+			screen.blit(score, [1200,60])
+			screen.blit(high_score, [1200,90])
 
-		#Draw the player
-		for good_minion in goods:
-			good_minion.drawMe()
-			if good_minion.lives > 0:
-				goods.add(good_minion)
+			#Draw the player
+			for good_minion in goods:
+				good_minion.drawMe()
+	#			if good_minion.lives > 0:
+	#				goods.add(good_minion)
 
-		for banana in bananas:
-			banana.update()
-			banana.drawBanana()
+			for banana in bananas:
+				banana.update()
+				banana.drawBanana()
 
-		for evil_minion in evils:
-			evil_minion.updateMe(good_minion)
-			evil_minion.drawMe()
+			for evil_minion in evils:
+				evil_minion.updateMe(good_minion)
+				evil_minion.drawMe()
 
-		checkEvents(good_minion, screen, bananas, tick, banana_sound)
+			checkEvents(good_minion, screen, bananas, tick, banana_sound, evils)
 
-		Collisions(goods, evils, bananas, good_minion, evil_minion)
+			Collisions(goods, evils, bananas, good_minion, evil_minion)
 
-		if good_minion.score > highest_score:
-			highest_score = good_minion.score
-			setHighScore(highest_score)
+			if good_minion.score > highest_score:
+				highest_score = good_minion.score
+				setHighScore(highest_score)
 
-		if not good_minion.isAlive():
-			#font = pygame.font.Font(None, 100)
-			#game_over = font.render("GAME OVER", True, (0,0,0))
-			#screen.blit(game_over, [500,200])
-			endScreen(screen, continue_text, game_over_text, good_minion)
-
-		pygame.display.flip()
+			if not good_minion.isAlive():
+				screen.blit(game_over_text, [310,100])
+				in_game = checkEvents(good_minion, screen, bananas, tick, banana_sound, evils) 
+                                if tick > last_shown + 50:
+                                        last_shown = tick
+                		if tick > last_shown + 30:
+                        		screen.blit(continue_text, [315,220])
+			pygame.display.flip()
 
 run_game()
 
