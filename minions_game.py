@@ -78,16 +78,16 @@ def run_game():
 
 			screen.blit(background_image, [0,0])
 
-			font = pygame.font.Font(None, 35)
+			font = pygame.font.Font("./fonts/GloriaHallelujah.ttf", 25)
 			# timer = font.render("Seconds passed: %d" % (tick / 30), True, (0,0,0))
 			lives = font.render("Lives: %d" % (good_minion.lives), True, (255,255,0))
 			score = font.render("Score: %d" % (good_minion.score), True, (255,255,255))
 			high_score = font.render("High Score: %d" % (highest_score), True, (255,255,255))
 
 			# screen.blit(timer, [1200,50])
-			screen.blit(lives, [1200,30])
-			screen.blit(score, [1200,60])
-			screen.blit(high_score, [1200,90])
+			screen.blit(lives, [1150,30])
+			screen.blit(score, [1150,60])
+			screen.blit(high_score, [1150,90])
 
 			#Draw the player
 			if good_minion.isAlive(): #added for sad_minion
