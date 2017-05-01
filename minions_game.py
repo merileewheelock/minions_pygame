@@ -5,6 +5,19 @@ from Evil import *
 from Banana import *
 from score_handler import *
 
+def twitch(good_minion):
+	if good_minion.x < 50 and good_minion.x < good_minion.previous_x and good_minion.x > 0:
+		good_minion.x -= 7
+		good_minion.prebious_x = good_minion.x
+	elif good_minion.x == 0:
+		good_minion.x = 1
+		good_minion. previous_x = 0
+	elif good_minion.x < 50 and good_minion.x > good_minion.previous_x:
+		good_minion.x += 5
+		good_minion.previous_x = good_minion.x
+	else:
+		good_minion.x = 50
+		good_minion.previous_x = 50
 
 def run_game():
 	pygame.init()
@@ -22,6 +35,7 @@ def run_game():
 	pygame.mixer.music.load("./sounds/super-bell-hill.wav")
 	minion_yahoo = pygame.mixer.Sound("./sounds/minion-yahoo-3.wav")
 	got_hit_sound = pygame.mixer.Sound("./sounds/minion-hit-2.wav")
+	hit_enemy_sound = pygame.mixer.Sound("./sounds/popping.wav")
 	pygame.mixer.music.play(-1)
 
 	good_minion = Good(screen, "./images/good_minion.png")
@@ -92,8 +106,8 @@ def run_game():
 
 			checkEvents(good_minion, screen, bananas, tick, banana_sound, evils, minion_yahoo)
 
-			Collisions(goods, evils, bananas, good_minion, evil_minion, got_hit_sound)
-
+			Collisions(goods, evils, bananas, good_minion, evil_minion, got_hit_sound, hit_enemy_sound)
+			twitch(good_minion)
 
 			if good_minion.score > highest_score:
 				highest_score = good_minion.score

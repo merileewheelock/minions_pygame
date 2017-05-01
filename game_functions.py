@@ -38,7 +38,7 @@ def checkEvents(good_minion, screen, bananas, tick, banana_sound, evils, minion_
 				good_minion.shouldMove("down", False)
 
 
-def Collisions(goods, evils, bananas, good_minion, evil_minion, got_hit_sound):
+def Collisions(goods, evils, bananas, good_minion, evil_minion, got_hit_sound, hit_enemy_sound):
 	good_died = groupcollide(goods, evils, False, True) #will make hero die when they collide
 	evil_died = groupcollide(bananas, evils, True, True)
 	good_minion_died = not len(good_died) == 0
@@ -47,10 +47,13 @@ def Collisions(goods, evils, bananas, good_minion, evil_minion, got_hit_sound):
 	if good_minion_died and good_minion.isAlive():
 		good_minion.decreaseLife()
 		got_hit_sound.play()
+		good_minion.x -=1
 	if evil_minion_died:
 		good_minion.score += 1
 		if good_minion.opponent_frequency > 2:
 			good_minion.opponent_frequency -= 2 
+			hit_enemy_sound.play()
+
 
 def welcomeScreen(screen, title_text, title_image, continue_text, minion_yahoo):
 	#yellow = (255,255,0)
