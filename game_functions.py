@@ -47,7 +47,8 @@ def Collisions(goods, evils, bananas, good_minion, evil_minion, got_hit_sound, h
 	if good_minion_died and good_minion.isAlive():
 		good_minion.decreaseLife()
 		got_hit_sound.play()
-		good_minion.x -=1
+		if good_minion.lives > 0:
+			good_minion.x -=1
 	if evil_minion_died:
 		good_minion.score += 1
 		if good_minion.opponent_frequency > 2:
