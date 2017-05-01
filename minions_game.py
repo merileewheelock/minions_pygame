@@ -35,7 +35,7 @@ def run_game():
 	pygame.mixer.music.load("./sounds/super-bell-hill.wav")
 	minion_yahoo = pygame.mixer.Sound("./sounds/minion-yahoo-3.wav")
 	got_hit_sound = pygame.mixer.Sound("./sounds/minion-hit-2.wav")
-	hit_enemy_sound = pygame.mixer.Sound("./sounds/popping.wav")
+	hit_enemy_sound = pygame.mixer.Sound("./sounds/squish.wav")
 	pygame.mixer.music.play(-1)
 
 	good_minion = Good(screen, "./images/good_minion.png")
