@@ -8,7 +8,7 @@ from score_handler import *
 def twitch(good_minion):
 	if good_minion.x < 50 and good_minion.x < good_minion.previous_x and good_minion.x > 0:
 		good_minion.x -= 7
-		good_minion.prebious_x = good_minion.x
+		good_minion.previous_x = good_minion.x
 	elif good_minion.x == 0:
 		good_minion.x = 1
 		good_minion. previous_x = 0
@@ -57,13 +57,13 @@ def run_game():
 
 	#INTRO WELCOME SCREEN
 	welcomeScreen(screen, title_text, title_image, continue_text, minion_yahoo)
-        
+
 	game_active = True
 	last_shown = 0
 
 	while game_active:
 		in_game = True
-		#evils.empty()	
+		#evils.empty()
 		while in_game:
 			tick += 1
 		#	last_bad_guy = 0
@@ -72,7 +72,7 @@ def run_game():
 			if tick > previous_bad_guy + good_minion.opponent_frequency:
 				evils.add(Evil(screen, "./images/evil_minion.png"))
 				previous_bad_guy = tick
-		
+
 	#		if tick % 30 == 0:
 	#				evils.add(Evil(screen, "./images/evil_minion.png"))
 
@@ -116,7 +116,7 @@ def run_game():
 			if not good_minion.isAlive():
 				screen.blit(sad_minion_image, [good_minion.x, good_minion.y])
 				screen.blit(game_over_text, [310,100])
-				in_game = checkEvents(good_minion, screen, bananas, tick, banana_sound, evils, minion_yahoo) 
+				in_game = checkEvents(good_minion, screen, bananas, tick, banana_sound, evils, minion_yahoo)
                                 if tick > last_shown + 50:
                                         last_shown = tick
                 		if tick > last_shown + 30:
